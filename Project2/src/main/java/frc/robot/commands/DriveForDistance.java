@@ -22,6 +22,7 @@ public class DriveForDistance extends CommandBase {
     @Override
     public void initialize() {
         dt.resetEncoders();
+        System.out.println("init");
     }
 
 
@@ -33,26 +34,27 @@ public class DriveForDistance extends CommandBase {
         double speed = Constants.kP * error + Constants.kD * errorRate;
         prevError = error;
 
-        if(dist > 0 && speed>0.3){
-        speed = 0.3;
-        }else if(dist <0 && speed<-0.3){
-        speed = -0.3;
+        if(dist > 0 && speed>0.5){
+        speed = 0.5;
+        }else if(dist <0 && speed<-0.5){
+        speed = -0.5;
         }
 
         if(Math.abs(error)>0){
-        dt.driveLeftMotors(speed);
-        dt.driveRightMotors(speed);
+            dt.arcadeDrive(speed, 0);
+            //System.out.println("speed: " +speed + "   error: "+ error);
         }
     } 
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        dt.stop();
+    }
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished() {
-        dt.stop();
+    public boolean isFinished() {     
         return false;
     }
 }

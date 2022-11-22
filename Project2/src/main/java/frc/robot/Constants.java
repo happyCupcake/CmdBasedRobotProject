@@ -15,15 +15,15 @@ package frc.robot;
 public final class Constants {
     //arm
     public static final int kArmPort = 23;
-    public static final boolean kArmInvert = false; //?
+    public static final boolean kArmInvert = true; //?
     public static double armUptarget = 0; //change
-    public static double armDowntarget = 0.5; //change
-    public static double armkP = 0.1;
-    public static double armtolerance = 0.2;
+    public static double armDowntarget = 14; //change
+    public static double armkP = 0.2;
+    public static double armtolerance = 2;
 
     //climber
-    public static final int kLeftClimberPort = 5;
-    public static final int kRightClimberPort = 14;
+    //public static final int kLeftClimberPort = 5;
+    //public static final int kRightClimberPort = 14;
     public static final boolean kLeftClimberInvert = false; //?
     public static final boolean kRightClimberInvert = false; //?
 
@@ -47,8 +47,6 @@ public final class Constants {
     public static final int kRightY = 5;
     public static final int controllerPort = 0;
 
-    //hood
-
     //indexer
     public static final int kIndexerPort = 25;
     public static final boolean kIndexerInvert = false; //?
@@ -60,18 +58,20 @@ public final class Constants {
     public static final double kIntakeSpeed = 0.5;
 
     //shooter
-    public static int ShooterMotorPortLeft = 5;
-    public static int ShooterMotorPortRight = 14;
+    //public static int ShooterMotorPortLeft = 5;
+    public static int ShooterMotorPortRight = 21;
     public static boolean ShooterInvert = false;
     public static double shooterSpeed = 0.3; 
 
     //hood
     public static int hoodMotorPort = 22;
     public static double hoodkP = 0.3;
-    public static double target = 0.0;
-    public static double tolerance = 0.0;
+    public static double target = -10.0;
+    public static double tolerance = 1.0;
 
     //controllers
     public static final int kController1Port = 0; //? for driving
     public static final int kController2Port = 1; //? for other
+
+    //SkyWalkers8404
 }

@@ -15,30 +15,30 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  private final WPI_TalonFX left = new WPI_TalonFX(Constants.ShooterMotorPortLeft);
+  //private final WPI_TalonFX left = new WPI_TalonFX(Constants.ShooterMotorPortLeft);
   private final WPI_TalonFX right = new WPI_TalonFX(Constants.ShooterMotorPortRight);
 
   public Shooter() {
-    right.follow(left);
+    //right.follow(left);
 
-    left.configFactoryDefault();
+    //left.configFactoryDefault();
     right.configFactoryDefault();
 
-    left.setInverted(Constants.ShooterInvert);
-    right.setInverted(InvertType.OpposeMaster);
+    //left.setInverted(Constants.ShooterInvert);
+    right.setInverted(Constants.ShooterInvert);
 
-    left.setNeutralMode(NeutralMode.Coast);
+    //left.setNeutralMode(NeutralMode.Coast);
     right.setNeutralMode(NeutralMode.Coast);
 
   }
 
   public void setShooterSpeed(double speed){
-    left.set(ControlMode.PercentOutput, speed);
+    //left.set(ControlMode.PercentOutput, speed);
     right.set(ControlMode.PercentOutput, speed);
   }
 
   public void stopShooter(){
-    left.set(ControlMode.PercentOutput, 0);
+    //left.set(ControlMode.PercentOutput, 0);
     //don't need to do set right? it's following left
     right.set(ControlMode.PercentOutput, 0);
   }

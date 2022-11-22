@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 //import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Arm arm;
-  private final Climber climber;
+  //private final Climber climber;
   private final Indexer indexer;
   private final Intake intake;
   private final DriveTrain dt;
@@ -45,7 +46,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     arm = new Arm();
-    climber = new Climber();
+    //climber = new Climber();
     indexer = new Indexer();
     intake = new Intake();
     dt = new DriveTrain();
@@ -56,7 +57,7 @@ public class RobotContainer {
     controller2 = new XboxController(Constants.kController2Port);
 
     driveDistance = new DriveForDistance(dt, Constants.dist);
-    driveJoystick = new DrivewithJoystick(dt, controller2);
+    driveJoystick = new DrivewithJoystick(dt, controller1);
     shooterSpeed = new SetShooterSpeed(shooter);
     moveHood = new MoveHood(hood, Constants.target, Constants.tolerance);
 
@@ -65,6 +66,8 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    dt.setDefaultCommand(new DrivewithJoystick(dt, controller2));
   }
 
   /**
@@ -84,10 +87,22 @@ public class RobotContainer {
     indexButton.whenPressed(new IndexBall(indexer));
 
     JoystickButton hoodButton = new JoystickButton(controller2, XboxController.Button.kY.value);
-    hoodButton.whenPressed(new MoveHood(hood, 3, 0.3));
+    hoodButton.whenPressed(new MoveHood(hood, Constants.target, Constants.tolerance));
 
     JoystickButton shooterButton = new JoystickButton(controller2, XboxController.Button.kLeftBumper.value);
     shooterButton.whenPressed(new SetShooterSpeed(shooter));
+
+    new JoystickButton(controller1, Button.kRightBumper.value).whenPressed(
+    new InstantCommand(() -> intake.on()));
+
+    new JoystickButton(controller1, Button.kLeftBumper.value).whenPressed(
+    new InstantCommand(() -> intake.off()));
+
+    /*new JoystickButton(controller2, Button.kRightBumper.value).whenPressed(
+    new RunCommand(() -> intake.on()));
+
+    new JoystickButton(controller2, Button.kLeftBumper.value).whenPressed(
+    new RunCommand(() -> intake.off()));*/
 
     /*
     new JoystickButton(controller1, Button.kRightBumper.value).whenPressed(
@@ -96,11 +111,6 @@ public class RobotContainer {
     new JoystickButton(controller1, Button.kLeftBumper.value).whenPressed(
     new InstantCommand(() -> climber.rotate(-0.3)));
 
-    new JoystickButton(controller2, Button.kRightBumper.value).whenPressed(
-    new InstantCommand(() -> intake.on()));
-
-    new JoystickButton(controller2, Button.kLeftBumper.value).whenPressed(
-    new InstantCommand(() -> intake.off()));
 
     */
   }
@@ -113,5 +123,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return driveDistance;
+    //return new InstantCommand();
   }
 }

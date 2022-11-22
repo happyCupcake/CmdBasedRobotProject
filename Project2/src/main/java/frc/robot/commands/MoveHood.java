@@ -24,23 +24,27 @@ public class MoveHood extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    hood.resetEncoder();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hood.resetEncoder();
+    
     hood.setHoodPosition(target, tolerance);
+    //System.out.println(hood.getPosition());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    hood.stopMotor();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    hood.stopMotor();
     return false;
   }
 }

@@ -18,22 +18,28 @@ public class DrivewithJoystick extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
+
     public void initialize() {}
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        dt.arcadeDrive(controller.getRawAxis(Constants.kLeftY)*Constants.arcadeDriveSpeed, controller.getRawAxis(Constants.kLeftX)*Constants.arcadeDriveSpeed);
+        //System.out.println("speed: "+ controller.getRawAxis(Constants.kLeftY)*Constants.arcadeDriveSpeed);
+        //System.out.println("Rot: "+ controller.getRawAxis(Constants.kRightX)*Constants.arcadeDriveSpeed);
+        dt.arcadeDrive(-1*controller.getRawAxis(Constants.kLeftY)*Constants.arcadeDriveSpeed, controller.getRawAxis(Constants.kRightX)*Constants.arcadeDriveSpeed);
+        
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        dt.stop();
+    }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        dt.stop();
         return false;
+
     }
 }

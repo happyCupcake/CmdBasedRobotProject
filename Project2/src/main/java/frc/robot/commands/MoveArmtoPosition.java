@@ -34,6 +34,7 @@ public class MoveArmtoPosition extends CommandBase {
     double dif = targetPosition - arm.getPosition();
     double speed = MathUtil.clamp(kP*dif, -0.3, 0.3);
     arm.arm(speed);
+    System.out.println(speed);
   }
 
   // Called once the command ends or is interrupted.

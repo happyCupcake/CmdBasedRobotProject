@@ -36,6 +36,11 @@ public class Hood extends SubsystemBase {
     double error = target - getPosition();
     if(Math.abs(error)> tolerance){
       setSpeed(MathUtil.clamp((error * Constants.hoodkP), -0.3, 0.3));
+      if(target>0 && getPosition()> target){
+        setSpeed(0);
+      }else if(target<0 && getPosition() < target){
+        setSpeed(0);
+      }
     }else{
       setSpeed(0);
     }
